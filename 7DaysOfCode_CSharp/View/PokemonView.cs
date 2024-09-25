@@ -1,7 +1,7 @@
 ﻿using _7DaysOfCode_CSharp.Controller;
 using _7DaysOfCode_CSharp.Models;
 
-namespace _7DaysOfCode_CSharp.Menu;
+namespace _7DaysOfCode_CSharp.View;
 
 internal class PokemonView
 {
@@ -18,12 +18,25 @@ internal class PokemonView
         Console.WriteLine("3 - Sair do app");
     }
 
+    public void ExibirMenuAdocao(string pokemonEscolhido)
+    {
+        Console.WriteLine("O que você deseja: ");
+        Console.WriteLine($"1 - Saber mais sobre o {pokemonEscolhido}");
+        Console.WriteLine($"2 - Adotar o {pokemonEscolhido}");
+        Console.WriteLine($"3 - Voltar ao menu");
+    }
     public void ExibirPokemons(List<Pokemon> pokemons)
     {
         foreach(var pokemon in pokemons)
         {
             Console.WriteLine(pokemon.Nome);
         }
+    }
+
+    public void QuebraDeMenu()
+    {
+        Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
+        Console.WriteLine("---------------------------------------------------");
     }
 
     public void AdotarPokemon(string pokemon)

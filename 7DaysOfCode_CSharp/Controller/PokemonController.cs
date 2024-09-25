@@ -1,4 +1,4 @@
-﻿using _7DaysOfCode_CSharp.Menu;
+﻿using _7DaysOfCode_CSharp.View;
 using _7DaysOfCode_CSharp.Models;
 using _7DaysOfCode_CSharp.Services;
 
@@ -16,8 +16,7 @@ public class PokemonController
         _service = new PokemonService();
         _pokemonView = new PokemonView();
     }
-
-    public async Task Menu()
+    public async Task Jogar()
     {
         bool loop = true;
         _pokemonView.AppEntrada();
@@ -26,6 +25,7 @@ public class PokemonController
         {
             _pokemonView.ExibirMenu();
             int escolha = int.Parse(Console.ReadLine());
+            _pokemonView.QuebraDeMenu();
             switch (escolha)
             {
                 case 1:
@@ -35,10 +35,7 @@ public class PokemonController
                     bool loop2 = true;
                     while(loop2 == true)
                     {
-                        Console.WriteLine("O que você deseja: ");
-                        Console.WriteLine($"1 - Saber mais sobre o {escolhido}");
-                        Console.WriteLine($"2 - Adotar o {escolhido}");
-                        Console.WriteLine($"3 - Voltar ao menu");
+                        _pokemonView.ExibirMenuAdocao(escolhido);
                         int opcao = int.Parse(Console.ReadLine());
                         switch (opcao)
                         {
@@ -58,14 +55,14 @@ public class PokemonController
                             default: Console.WriteLine("Opção Inválida"); break;
                         }
                     }
-                    Console.WriteLine("-----------------------------------------");
+                    _pokemonView.QuebraDeMenu();
                     break;
                 case 2:
                     foreach(string pokemon in Pokedex)
                     {
                         Console.WriteLine(pokemon);
                     }
-                    Console.WriteLine("-----------------------------------------");
+                    _pokemonView.QuebraDeMenu();                  
                     break;
                 case 3:
                     loop = false;
@@ -86,7 +83,7 @@ public class PokemonController
         if (pokemonsResponse?.listaDePokemons != null)
         {
             foreach (var pokemon in pokemonsResponse.listaDePokemons)
-            {
+            {               
                 Console.WriteLine(pokemon.Nome);
             }
             Console.WriteLine("\nEscolha o seu Pokemon");
@@ -108,6 +105,11 @@ public class PokemonController
             Console.WriteLine($"Altura do Pokemon: {pokemon.Altura}");
             Console.WriteLine($"Peso do Pokemon: {pokemon.Peso}");
             Console.WriteLine("Habilidades:");
+
+            foreach(PokemonHabilidadesInfo c in pokemon.ListDeHabilidades)
+            {
+                Console.WriteLine(c.Habilidade.Nome.ToUpper());
+            }
         }
     }
 }
