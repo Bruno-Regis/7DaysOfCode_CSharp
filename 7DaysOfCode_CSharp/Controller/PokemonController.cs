@@ -9,7 +9,7 @@ public class PokemonController
     private readonly PokemonService _service;
     //private readonly PokemonResponse response;
     private readonly PokemonView _pokemonView;
-    List<string> Pokedex = new List<string>();
+    List<Pokemon> Pokedex = new List<Pokemon>();
     public string Usuario { get; set; }
     public PokemonController()
     {
@@ -41,12 +41,13 @@ public class PokemonController
                         {
                             case 1:
                                 await ExibirDetalhesPokemonAsync(escolhido);
-                                Console.ReadKey();
                                 break;
                             case 2:
-                                _pokemonView.AdotarPokemon(escolhido);
                                 Console.WriteLine($"Pokemon {escolhido} Adicionado à Pokedex");
-                                Pokedex.Add(escolhido);
+                                Random random = new Random();
+                                Pokemon pokemon = new(escolhido, 2,3,4);
+                                _pokemonView.AdotarPokemon(pokemon);
+                                Pokedex.Add(pokemon);
                                 loop2 = false;
                                 break;
                             case 3:
@@ -58,10 +59,30 @@ public class PokemonController
                     _pokemonView.QuebraDeMenu();
                     break;
                 case 2:
-                    foreach(string pokemon in Pokedex)
+                    _pokemonView.ExibirMenuMeusPokemons(Pokedex);
+                    int escolhaBrincar = int.Parse(Console.ReadLine());
+                    if(escolhaBrincar != 0)
                     {
-                        Console.WriteLine(pokemon);
+                        Pokemon brincarPokemon = Pokedex[escolhaBrincar - 1];
+                        Console.WriteLine("1 - Brincar\n2 - Alimentar\n3 - Dormir");
+                        int escolhabrincar2 = int.Parse(Console.ReadLine());
+                        switch (escolhabrincar2)
+                        {
+                            case 1:
+                                brincarPokemon.BrincarPokemon();
+                                break;
+                            case 2:
+                                brincarPokemon.AlimentarPokemon();
+                                    break;
+                            case 3:
+                                brincarPokemon.DescansarPokemon();
+                                break;
+                            default:
+                                Console.WriteLine("Escolha inválida");
+                                break;
+                        }                            
                     }
+                    Console.ReadKey();
                     _pokemonView.QuebraDeMenu();                  
                     break;
                 case 3:
@@ -75,7 +96,6 @@ public class PokemonController
             }
         }
     }
-
     public async Task ExibirPokemonsAsync()
     {
         string url = "https://pokeapi.co/api/v2/pokemon/";

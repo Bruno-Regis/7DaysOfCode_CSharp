@@ -25,12 +25,15 @@ internal class PokemonView
         Console.WriteLine($"2 - Adotar o {pokemonEscolhido}");
         Console.WriteLine($"3 - Voltar ao menu");
     }
-    public void ExibirPokemons(List<Pokemon> pokemons)
+    public void ExibirMenuMeusPokemons(List<Pokemon> pokemons)
     {
-        foreach(var pokemon in pokemons)
+        for (int i = 0; i < pokemons.Count; i++)
         {
-            Console.WriteLine(pokemon.Nome);
+            Console.WriteLine($"{i+1}.{pokemons[i].Nome}");
         }
+        Console.WriteLine();
+        Console.WriteLine("Escolha o o Pokemon que você deseja interagir");
+        Console.WriteLine("Digite 0 para voltar ao menu");
     }
 
     public void QuebraDeMenu()
@@ -39,9 +42,9 @@ internal class PokemonView
         Console.WriteLine("---------------------------------------------------");
     }
 
-    public void AdotarPokemon(string pokemon)
+    public void AdotarPokemon (Pokemon pokemon)
     {
-        Console.Write($"{pokemon} Eu escolho você!!");
+        Console.WriteLine($"{pokemon.Nome} Eu escolho você!!");
         Console.WriteLine();      
     }
 }

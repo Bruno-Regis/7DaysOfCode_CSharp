@@ -27,6 +27,11 @@
    um pouco do código, passando responsabilidades de view para o view que estavam no controller, e colocando mais algumas funcionalidades visuais.
    Com isso dei uma enxugada no código do controller, ficou mais clean.
    Desafio do quarto dia completo!!
+   
+   =======Quinto dia======
+   O desafio do quinto dia foi implementar interações com os pokemons do usuário incluindo métodos que modificassem os atributos do pokemon. Implementei
+   uma lista de objetos do tipo pokemon na pokedex e os métodos.
+   Desafio do quinto dia completo!!
 
 */
 using _7DaysOfCode_CSharp.Controller;
