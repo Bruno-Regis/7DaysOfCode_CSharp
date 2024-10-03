@@ -33,8 +33,16 @@
    uma lista de objetos do tipo pokemon na pokedex e os métodos.
    Desafio do quinto dia completo!!
 
+   =======Sexto dia======
+   O sexto dia, o desafio foi mapear duas classes distintas com atributos em comum utilizando autoMapper. Fui muito além, e na verdade o quinto dia se
+   tornaram alguns dias, decidi refatorar o código inteiro, testar outras bibliotecas como newtonsoft, alterar o service sem utilizar generics, e o controller
+   foi reabilitado para interagir de acordo com as novas alterações.. o View ficou mais interativo também. o projeto tá show, muito aprendizado até aqui!
+
 */
 using _7DaysOfCode_CSharp.Controller;
+using _7DaysOfCode_CSharp.Services;
+using _7DaysOfCode_CSharp.View;
 
 PokemonController App = new PokemonController();
-await App.Jogar();
+App.Jogar();
+

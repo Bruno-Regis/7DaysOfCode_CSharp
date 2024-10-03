@@ -5,6 +5,7 @@ namespace _7DaysOfCode_CSharp.View;
 
 internal class PokemonView
 {
+    
     public void AppEntrada()
     {
         Console.WriteLine("▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓\r\n▓                                              ▓\r\n▓                                              ▓\r\n▓        POKÉMON API CONSOLE APPLICATION        ▓\r\n▓                                              ▓\r\n▓                                              ▓\r\n▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓");
@@ -25,7 +26,29 @@ internal class PokemonView
         Console.WriteLine($"2 - Adotar o {pokemonEscolhido}");
         Console.WriteLine($"3 - Voltar ao menu");
     }
-    public void ExibirMenuMeusPokemons(List<Pokemon> pokemons)
+
+    public void ExibirPokemonsDisponiveis(List<PokemonLista> pokemonsDisponiveis)
+    {
+            for (int i = 0; i < pokemonsDisponiveis.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {pokemonsDisponiveis[i].Nome}");
+
+            }
+    }
+
+    public void ExibirDetalhesDoPokemon(PokemonDetalhes detalhes)
+    {
+        Console.WriteLine($"Nome do Pokemon: {detalhes.name}");
+        Console.WriteLine($"Altura do Pokemon: {detalhes.height}");
+        Console.WriteLine($"Peso do Pokemon: {detalhes.weight}");
+        Console.WriteLine("Habilidades:");
+
+        foreach (var habilidade in detalhes.Abilities)
+        {
+            Console.WriteLine(habilidade.Ability.name.ToUpper());
+        }
+    }
+    public void ExibirMenuMeusPokemons(List<PokemonDTO> pokemons)
     {
         for (int i = 0; i < pokemons.Count; i++)
         {
@@ -42,9 +65,31 @@ internal class PokemonView
         Console.WriteLine("---------------------------------------------------");
     }
 
-    public void AdotarPokemon (Pokemon pokemon)
+    public void AdotarPokemon (PokemonDTO pokemon)
     {
         Console.WriteLine($"{pokemon.Nome} Eu escolho você!!");
-        Console.WriteLine();      
+        Console.WriteLine();
+        ContagemRegressiva();
+        Console.WriteLine("Seu Pokemon foi Capturado!! ele se desgastou um pouco, seus status: ");
+        Console.WriteLine($"Humor: {pokemon.Humor}");
+        Console.WriteLine($"Fome: {pokemon.Fome}");
+        Console.WriteLine($"Sono: {pokemon.Sono}");
+        Console.WriteLine($"Saude: {pokemon.Saude}");
+    }
+
+
+    public void ContagemRegressiva()
+    {
+        // Define a contagem inicial de 5 segundos
+        int contagem = 5;
+
+        // Loop para a contagem regressiva
+        while (contagem > 0)
+        {
+            Console.Clear(); // Limpa o console para atualizar a contagem
+            Console.WriteLine($"Contagem regressiva: {contagem} segundos");
+            Thread.Sleep(1000); // Pausa a execução por 1 segundo (1000 milissegundos)
+            contagem--; // Diminui a contagem em 1
+        }
     }
 }

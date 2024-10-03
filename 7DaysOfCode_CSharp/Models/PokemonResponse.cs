@@ -1,16 +1,17 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 namespace _7DaysOfCode_CSharp.Models;
 
-internal class PokemonResponse
+public class PokemonResponse
 {
     public int count { get; set; }
     
-    [JsonPropertyName("next")]
+    [JsonProperty("next")]
     public string UrlSeguinte { get; set; }
     
-    [JsonPropertyName("previous")]
+    [JsonProperty("previous")]
     public string UrlAnterior { get; set; }
     
-    [JsonPropertyName("results")]
-    public List<ListaDePokemon> listaDePokemons { get; set; }
+    [JsonProperty("results")]
+    public List<PokemonLista> listaDePokemons { get; set; }
 }
