@@ -35,7 +35,7 @@ public class PokemonController
         while (loop == true)
         {
             _pokemonView.ExibirMenu();
-            int escolha = int.Parse(Console.ReadLine());
+            int escolha = _pokemonView.ObterEscolhaDoJogador(3);
             _pokemonView.QuebraDeMenu();
             switch (escolha)
             {
@@ -43,21 +43,21 @@ public class PokemonController
                     Console.WriteLine($"{Usuario}, esses são os Pokemons disponíveis para adoção: ");
                     _pokemonView.ExibirPokemonsDisponiveis(PokemonsDisponiveis);
                     Console.Write("Digite o número correspondente ao Pokemon que você deseja escolher: ");
-                    int escolhido = int.Parse(Console.ReadLine()) - 1;
+                    escolha = _pokemonView.ObterEscolhaDoJogador(PokemonsDisponiveis.Count) - 1 ;
                     bool loop2 = true;
                     while(loop2 == true)
                     {
-                        _pokemonView.ExibirMenuAdocao(PokemonsDisponiveis[escolhido].Nome);
-                        int opcao = int.Parse(Console.ReadLine());
-                        switch (opcao)
+                        _pokemonView.ExibirMenuAdocao(PokemonsDisponiveis[escolha].Nome);
+                        int escolhaInteragir = _pokemonView.ObterEscolhaDoJogador(3);
+                        switch (escolhaInteragir)
                         {
                             case 1:
-                                PokemonDetalhes detalhes = _service.ObtemDetalhesPokemon(PokemonsDisponiveis[escolhido]);
+                                PokemonDetalhes detalhes = _service.ObtemDetalhesPokemon(PokemonsDisponiveis[escolha]);
                                 _pokemonView.ExibirDetalhesDoPokemon(detalhes);                            
                                 break;
                             case 2:
-                                //Console.WriteLine($"Pokemon {escolhido} Adicionado à Pokedex");
-                                detalhes = _service.ObtemDetalhesPokemon(PokemonsDisponiveis[escolhido]);
+                                Console.Clear();
+                                detalhes = _service.ObtemDetalhesPokemon(PokemonsDisponiveis[escolha]);
                                 PokemonDTO pokemon = mapper.Map<PokemonDTO>(detalhes);
                                 _pokemonView.AdotarPokemon(pokemon);
                                 Pokedex.Add(pokemon);
@@ -66,35 +66,34 @@ public class PokemonController
                             case 3:
                                 loop2 = false;
                                 break;
-                            default: Console.WriteLine("Opção Inválida"); break;
+                            default: 
+                                Console.WriteLine("Opção Inválida"); 
+                                break;
                         }
                     }
                     _pokemonView.QuebraDeMenu();
                     break;
                 case 2:
                     _pokemonView.ExibirMenuMeusPokemons(Pokedex);
-                    int escolhaBrincar = int.Parse(Console.ReadLine());
-                    if(escolhaBrincar != 0)
+                    int escolhaBrincar = _pokemonView.ObterEscolhaDoJogador(Pokedex.Count);
+                    PokemonDTO brincarPokemon = Pokedex[escolhaBrincar - 1];
+                    Console.WriteLine("1 - Brincar\n2 - Alimentar\n3 - Dormir");
+                    int interacao = _pokemonView.ObterEscolhaDoJogador(3);
+                    switch (interacao)
                     {
-                        PokemonDTO brincarPokemon = Pokedex[escolhaBrincar - 1];
-                        Console.WriteLine("1 - Brincar\n2 - Alimentar\n3 - Dormir");
-                        int escolhabrincar2 = int.Parse(Console.ReadLine());
-                        switch (escolhabrincar2)
-                        {
-                            case 1:
-                                brincarPokemon.BrincarPokemon();
+                        case 1:
+                            brincarPokemon.BrincarPokemon();
+                            break;
+                        case 2:
+                            brincarPokemon.AlimentarPokemon();
                                 break;
-                            case 2:
-                                brincarPokemon.AlimentarPokemon();
-                                    break;
-                            case 3:
-                                brincarPokemon.DescansarPokemon();
-                                break;
-                            default:
-                                Console.WriteLine("Escolha inválida");
-                                break;
-                        }                            
-                    }
+                        case 3:
+                            brincarPokemon.DescansarPokemon();
+                            break;
+                        default:
+                            Console.WriteLine("Escolha inválida");
+                            break;
+                    }                         
                     Console.ReadKey();
                     _pokemonView.QuebraDeMenu();                  
                     break;
@@ -105,6 +104,8 @@ public class PokemonController
                     break;
                 default:
                     Console.WriteLine("Opção inválida");
+                    Console.ReadKey();
+
                     break;
             }
         }

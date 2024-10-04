@@ -37,7 +37,12 @@
    O sexto dia, o desafio foi mapear duas classes distintas com atributos em comum utilizando autoMapper. Fui muito além, e na verdade o quinto dia se
    tornaram alguns dias, decidi refatorar o código inteiro, testar outras bibliotecas como newtonsoft, alterar o service sem utilizar generics, e o controller
    foi reabilitado para interagir de acordo com as novas alterações.. o View ficou mais interativo também. o projeto tá show, muito aprendizado até aqui!
-
+   
+   =======Sexto dia======
+   O sétimo e último dia foi o dia de pensar e trabalhar nas possíveis exceptions que poderiam ocorrer, apliquei exceptions no service, controlando caso
+   haja erro ao consumir a API, e também trabalhei com a interação com o usuário, desenvolvendo um método no view que obtem a escolha do jogador, faz um tryparse
+   para verificar se a escolha do jogador ao decorrer do menu é valores inteiros e também se eles se encontram dentro do range de possibilidades!!
+   Fim de projeto animal, me sinto muito melhor programador do que a uma semana atrás, bora para mais!!
 */
 using _7DaysOfCode_CSharp.Controller;
 using _7DaysOfCode_CSharp.Services;

@@ -38,35 +38,35 @@ public class PokemonService
 
     public List<PokemonLista> ObtemPokemons()
     {
-        //try
-        //{
-        //var client = new RestClient("https://pokeapi.co/api/v2/pokemon/");
-        var client = new RestSharp.RestClient();
-        var request = new RestRequest("https://pokeapi.co/api/v2/pokemon/", Method.Get);
-        RestResponse response = client.Execute(request);
+        try
+        {
+            var client = new RestSharp.RestClient();
+            var request = new RestRequest("https://pokeapi.co/api/v2/pokemon/", Method.Get);
+            RestResponse response = client.Execute(request);
 
-        //if (response.StatusCode == System.Net.HttpStatusCode.OK)
-        //{
-        var pokemonResposta = JsonConvert.DeserializeObject<PokemonResponse>(response.Content);
-        return pokemonResposta.listaDePokemons;
-
-        //    }
-        //    else
-        //    {
-        //        // retorna o erro e uma lista de pokemon vazia
-        //        Console.WriteLine(response.ErrorMessage);
-        //        return new List<PokemonLista>();
-        //    }
-        //}
-        //catch (Exception ex)
-        //{
-        //    Console.WriteLine(ex.Message);
-        //    return new List<PokemonLista>();
-        //}
-
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var pokemonResposta = JsonConvert.DeserializeObject<PokemonResponse>(response.Content);
+                return pokemonResposta.listaDePokemons;
+            }
+            else
+            {
+                // retorna o erro e uma lista de pokemon vazia
+                Console.WriteLine(response.ErrorMessage);
+                return new List<PokemonLista>();
+            }
+        }
+        catch (HttpRequestException e)
+        {
+            Console.WriteLine($"Erro de solicitação: {e.Message}");
+            return null;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return new List<PokemonLista>();
+        }
     }
-
-
     public PokemonDetalhes ObtemDetalhesPokemon(PokemonLista pokemons )
     {
         try
@@ -79,13 +79,18 @@ public class PokemonService
             {
                 return JsonConvert.DeserializeObject<PokemonDetalhes>(response.Content);
             }
-               else
+            else
             {
                 Console.WriteLine(response.ErrorMessage);
                 return new PokemonDetalhes();
             }
         }
-        catch(Exception ex)
+        catch (HttpRequestException e)
+        {
+            Console.WriteLine($"Erro de solicitação: {e.Message}");
+            return null;
+        }
+        catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
            return new PokemonDetalhes();

@@ -56,7 +56,7 @@ internal class PokemonView
         }
         Console.WriteLine();
         Console.WriteLine("Escolha o o Pokemon que você deseja interagir");
-        Console.WriteLine("Digite 0 para voltar ao menu");
+        Console.WriteLine("Pressione enter para voltar ao menu");
     }
 
     public void QuebraDeMenu()
@@ -68,6 +68,7 @@ internal class PokemonView
     public void AdotarPokemon (PokemonDTO pokemon)
     {
         Console.WriteLine($"{pokemon.Nome} Eu escolho você!!");
+
         Console.WriteLine();
         ContagemRegressiva();
         Console.WriteLine("Seu Pokemon foi Capturado!! ele se desgastou um pouco, seus status: ");
@@ -85,11 +86,21 @@ internal class PokemonView
 
         // Loop para a contagem regressiva
         while (contagem > 0)
-        {
-            Console.Clear(); // Limpa o console para atualizar a contagem
+        {            
             Console.WriteLine($"Contagem regressiva: {contagem} segundos");
             Thread.Sleep(1000); // Pausa a execução por 1 segundo (1000 milissegundos)
             contagem--; // Diminui a contagem em 1
         }
+    }
+
+    // Método que checa a escolha do jogador se é válida para transformar em um inteiro, e checa se está dentro do range de opções
+    public int ObterEscolhaDoJogador(int opcaoMax)
+    {
+        int escolha;
+        while (!int.TryParse(Console.ReadLine(), out escolha) || escolha < 1 || escolha > opcaoMax)
+        {
+            Console.WriteLine($"Escolha inválida, digite um número válido de 1 a {opcaoMax}");
+        }
+        return escolha;
     }
 }
